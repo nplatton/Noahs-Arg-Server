@@ -9,6 +9,6 @@ services:
         target: /code
 
   db:
-    image: mongo:12.4
+    image: mongo:5.0
     environment:
       - MONGO_INITDB_ROOT_USERNAME=BNP
