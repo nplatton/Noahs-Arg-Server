@@ -1,0 +1,26 @@
+services:
+  api:
+    container_name: Arg_dev_api
+    ports:
+      - 3000:3000
+    environment:
+      - DB_NAME=habits
+      - DB_CONNECTION=mongodb://BNP:BNPassword@db:27017
+    depends_on:
+      - db
+    command: bash -c "npm install && npm run dev"
+
+  db:
+    container_name: Arg_dev_db
+    volumes:
+      - "dbdata:/var/lib/mongodb/data"
+      - "./db/seeds.js:/docker-entrypoint-initdb.d/seeds.js:ro"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=BNP
+      - MONGO_INITDB_ROOT_PASSWORD=BNPassword
+      - MONGO_INITDB_DATABASE=habits
+volumes:
+  dbdata:
+networks:
+  default:
+    name: Arg_api
