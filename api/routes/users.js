@@ -1,12 +1,16 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const usersController = require('../controllers/users')
+const usersController = require("../controllers/users");
 
-router.get('/:org/users', usersController.index)
-router.get('/:org/users/:username', usersController.show)
-router.post('/:org/users/', usersController.create)
-router.patch('/:org/users/:username/habits/', usersController.updateHabit)
-router.delete('/:org/users/:username/habits/:habit/', usersController.destroyHabit)
-
+router.get("/:org", usersController.index);
+router.get("/:username", usersController.show);
+router.post("/", usersController.create);
+router.delete("/:username", usersController.destroyUser);
+router.patch("/:username/habits/", usersController.updateHabit);
+router.patch("/:username/habits/:habit", usersController.updateSingleHabit);
+// router.delete(
+//   "/:org/users/:username/habits/:habit/",
+//   usersController.destroyHabit
+// );
 
 module.exports = router;
