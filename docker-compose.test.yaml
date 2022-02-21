@@ -1,0 +1,21 @@
+services:
+  api:
+    container_name: Arg_test_api
+    environment:
+      - DB_NAME=habits
+      - DB_CONNECTION=mongodb://BNP:BNPassword@db:27017
+    depends_on:
+      - db
+    tty: true
+  db:
+    container_name: Arg_test_db
+    volumes:
+      - "test_db:/var/lib/mongodb/data"
+    environment:
+      - POSTGRES_DB=habits
+      - POSTGRES_PASSWORD=BNPassword
+volumes:
+  test_db:
+networks:
+  default:
+    name: Arg_test
