@@ -4,11 +4,11 @@ db.users.drop();
 
 db.users.insertMany([
   {
-    name: "noah",
+    username: "noah",
     // Password: noah
     password_digest:
       "$2a$10$4EAIUWYfI8NC4hSUDyu2R.bGW.zyfKfebOQL6QC6H39VQGK6Reke2",
-    org: "Noahs Arg",
+    org: "Noahs_Arg",
     tracked_habits: {
       drink_water: {
         target_amount: 4,
@@ -50,11 +50,11 @@ db.users.insertMany([
     },
   },
   {
-    name: "philip",
+    username: "philip",
     // Password: philip
     password_digest:
       "$2a$10$cX2K8p9oat9RO5dj2F4VduhN06J6qlH1M6q/v39pFh76kD/SO208q",
-    org: "Noahs Arg",
+    org: "Noahs_Arg",
     tracked_habits: {
       drink_water: {
         target_amount: 3,
@@ -96,11 +96,11 @@ db.users.insertMany([
     },
   },
   {
-    name: "bojin",
+    username: "bojin",
     // Password: bojin
     password_digest:
       "$2a$10$fxXsRktC6JsMsas1RfcQY.uFFg/jAKNPnYjXnYIA/otPJrwkLq0bq",
-    org: "Noahs Arg",
+    org: "Noahs_Arg",
     tracked_habits: {
       drink_water: {
         target_amount: 3,
