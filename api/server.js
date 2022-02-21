@@ -7,4 +7,7 @@ server.use(express.json());
 
 server.get('/', (req, res) => res.send('Welcome to Noahs-Arg-Server!'));
 
+const usersRoutes = require('./routes/users');
+server.use('/users', usersRoutes);
+
 module.exports = server;
