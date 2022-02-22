@@ -12,7 +12,7 @@ async function index(req, res) {
 // -----------------I DONT KNOW---------------------------
 async function show(req, res) {
   try {
-    const user = await User.findByUsername(req.params.username);
+    const user = await User.findByUsername(req.params.username.toLowerCase());
     res.status(200).json(user);
   } catch (err) {
     res.status(500).json({ err: req.params.username });
