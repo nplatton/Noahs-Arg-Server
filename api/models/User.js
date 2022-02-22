@@ -53,7 +53,7 @@ class User {
           username: data.username.toLowerCase(),
           password_digest: data.password_digest,
           org: data.org.toLowerCase(),
-          habits: {},
+          tracked_habits: {},
           streaks: {
             habit1: {
               highest: 0,
@@ -85,7 +85,7 @@ class User {
     });
   }
 
-  updateWeeklyHabits(data) {
+  createHabits(data) {
     return new Promise(async (res, rej) => {
       try {
         const db = await init();
@@ -104,20 +104,37 @@ class User {
     });
   }
 
-  updateDailyHabit(habit) {
+  incrementHabit(habitName) {
     return new Promise(async (res, rej) => {
       try {
         const db = await init();
-        const updatedUserData = await db.collection("users").findOneAndUpdate(
+        await db.collection("users").findOneAndUpdate(
           { username: { $eq: this.username } },
           {
             $inc: {
-              "tracked_habits.$[habit].daily_count": 1,
-              "tracked_habits.$[habit].weekly_count": 1,
+              "tracked_habits[${habitName}].daily_count": 1,
+              "tracked_habits[${habitName}].weekly_count": 1,
             },
           }
         );
         res("Habit Updated");
+      } catch (err) {
+        rej(err);
+      }
+    });
+  }
+
+  destroyHabits() {
+    return new Promise(async (res, rej) => {
+      try {
+        const db = await init();
+        const updatedUserData = await db
+          .collection("users")
+          .findOneAndUpdate(
+            { username: { $eq: this.username } },
+            { $set: { tracked_habits: {} } }
+          );
+        res("Tracked Habits Cleared");
       } catch (err) {
         rej(err);
       }

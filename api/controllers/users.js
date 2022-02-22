@@ -9,7 +9,6 @@ async function index(req, res) {
   }
 }
 
-// -----------------I DONT KNOW---------------------------
 async function show(req, res) {
   try {
     const user = await User.findByUsername(req.params.username.toLowerCase());
@@ -38,54 +37,43 @@ async function destroyUser(req, res) {
   }
 }
 
-// async function createHabit(req, res) {
-//   try {
-//     const habit = await User.habits.create(req.body);
-//     res.status(200).json(habit);
-//   } catch (err) {
-//     res.status(422).json({ err });
-//   }
-// }
-
-async function updateHabit(req, res) {
+async function updateHabits(req, res) {
   try {
     console.log(req.params.id);
     const user = await User.findByUsername(req.params.username);
-    const updatedUser = await user.updateWeeklyHabits(req.body);
-    // const habit_update = await habit.update();
+    const updatedUser = await user.createHabits(req.body);
     res.status(200).json(updatedUser);
   } catch (err) {
-    res.status(404).json({ err });
+    res.status(500).json({ err });
   }
 }
 
 async function updateSingleHabit(req, res) {
   try {
     const user = User.findByUsername(req.params.username);
-    await user.updateSingleHabit(req.params.habit);
-    res.status(200).json({});
+    const reponse = await user.incrementHabit(req.params.habit);
+    res.status(200).json("Habit Updated");
   } catch (err) {
-    res.status(500).json({ err: err });
+    res.status(500).json({ err });
   }
 }
 
-// async function destroyHabit(req, res) {
-//   try {
-//     const habit = await User.habits.findByHabitId(parseInt(req.params.id));
-//     await habit.destroy();
-//     res.status(204).end();
-//   } catch (err) {
-//     res.status(404).json({ err });
-//   }
-// }
+async function clearHabits(req, res) {
+  try {
+    const user = await User.findByUsername(req.params.username);
+    await user.destroyHabits();
+    res.status(204).end();
+  } catch (err) {
+    res.status(404).json({ err });
+  }
+}
 
 module.exports = {
   index,
   show,
   create,
-  //   createHabit,
-  updateHabit,
+  updateHabits,
   updateSingleHabit,
-  //   destroyHabit,
+  clearHabits,
   destroyUser,
 };
