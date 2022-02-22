@@ -2,7 +2,7 @@ const { init } = require("../dbConfig/config");
 
 class User {
   constructor(data) {
-    this.id = data.id;
+    this.id = data._id;
     this.username = data.username;
     this.passwordDigest = data.password_digest;
     this.org = data.org;
@@ -16,10 +16,11 @@ class User {
         const db = await init();
         const userData = await db
           .collection("users")
-          .find({ org: { $eq: org } })
-          .toArray();
-        const users = userData.map((item) => new User(item));
-        res(users);
+          .find({ org: { $eq: org } });
+        // .toArray();
+        // const users = userData.map((item) => new User(item));
+        // res(users);
+        res(userData);
       } catch (err) {
         rej(err);
       }
@@ -105,7 +106,7 @@ class User {
   }
 
   updateDailyHabit(habit) {
-    return new Promis(async (res, rej) => {
+    return new Promise(async (res, rej) => {
       try {
         const db = await init();
         const updatedUserData = await db.collection("users").findOneAndUpdate(
