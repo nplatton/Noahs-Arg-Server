@@ -5,7 +5,7 @@ db.users.drop();
 db.users.insertMany([
   {
     username: "noah",
-    // Password: noah
+    password: "noah",
     password_digest:
       "$2a$10$4EAIUWYfI8NC4hSUDyu2R.bGW.zyfKfebOQL6QC6H39VQGK6Reke2",
     org: "Noahs_Arg",
@@ -51,7 +51,7 @@ db.users.insertMany([
   },
   {
     username: "philip",
-    // Password: philip
+    password: "philip",
     password_digest:
       "$2a$10$cX2K8p9oat9RO5dj2F4VduhN06J6qlH1M6q/v39pFh76kD/SO208q",
     org: "Noahs_Arg",
@@ -97,7 +97,7 @@ db.users.insertMany([
   },
   {
     username: "bojin",
-    // Password: bojin
+    password: "bojin",
     password_digest:
       "$2a$10$fxXsRktC6JsMsas1RfcQY.uFFg/jAKNPnYjXnYIA/otPJrwkLq0bq",
     org: "Noahs_Arg",
