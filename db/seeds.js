@@ -12,18 +12,18 @@ db.users.insertMany([
     tracked_habits: {
       drink_water: {
         target_amount: 4,
-        dailyCount: 4,
-        weeklyCount: 15,
+        daily_count: 4,
+        weekly_count: 15,
       },
       break_from_screen: {
         target_amount: 3,
-        dailyCount: 2,
-        weeklyCount: 10,
+        daily_count: 2,
+        weekly_count: 10,
       },
       stretch: {
         target_amount: 3,
-        dailyCount: 0,
-        weeklyCount: 12,
+        daily_count: 0,
+        weekly_count: 12,
       },
     },
     streaks: {
@@ -58,18 +58,18 @@ db.users.insertMany([
     tracked_habits: {
       drink_water: {
         target_amount: 3,
-        dailyCount: 2,
-        weeklyCount: 10,
+        daily_count: 2,
+        weekly_count: 10,
       },
       break_from_screen: {
         target_amount: 3,
-        dailyCount: 0,
-        weeklyCount: 12,
+        daily_count: 0,
+        weekly_count: 12,
       },
       stretch: {
         target_amount: 4,
-        dailyCount: 4,
-        weeklyCount: 15,
+        daily_count: 4,
+        weekly_count: 15,
       },
     },
     streaks: {
@@ -104,18 +104,18 @@ db.users.insertMany([
     tracked_habits: {
       drink_water: {
         target_amount: 3,
-        dailyCount: 0,
-        weeklyCount: 12,
+        daily_count: 0,
+        weekly_count: 12,
       },
       break_from_screen: {
         target_amount: 4,
-        dailyCount: 4,
-        weeklyCount: 15,
+        daily_count: 4,
+        weekly_count: 15,
       },
       stretch: {
         target_amount: 3,
-        dailyCount: 2,
-        weeklyCount: 10,
+        daily_count: 2,
+        weekly_count: 10,
       },
     },
     streaks: {

@@ -2,8 +2,8 @@ const User = require("../models/User");
 
 async function index(req, res) {
   try {
-    const users = await User.all(req.params.org);
-    res.status(200).json(users);
+    const users = await User.all(req.params.orgName);
+    res.status(200).json({ blah: users });
   } catch (err) {
     res.status(500).json({ err });
   }
@@ -63,8 +63,9 @@ async function updateSingleHabit(req, res) {
   try {
     const user = User.findByUsername(req.params.username);
     await user.updateSingleHabit(req.params.habit);
+    res.status(200).json({});
   } catch (err) {
-    res.status(500).json({ err });
+    res.status(500).json({ err: err });
   }
 }
 
