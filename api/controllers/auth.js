@@ -22,7 +22,7 @@ async function login(req, res) {
         if(!user){ throw new Error('No user with this username') }
         console.log(req.body.password)
         console.log(user.passwordDigest)
-        const authed = bcrypt.compareSync(req.body.password, user.passwordDigest)
+        const authed = bcrypt.compareSync(req.body.password, user.password_digest)
         if (!!authed){
             const payload = { username: user.username, org : user.org }
             const sendToken = (err, token) => {
