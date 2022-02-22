@@ -85,7 +85,7 @@ class User {
     });
   }
 
-  updateWeeklyHabits(data) {
+  createHabits(data) {
     return new Promise(async (res, rej) => {
       try {
         const db = await init();
@@ -118,6 +118,23 @@ class User {
           }
         );
         res("Habit Updated");
+      } catch (err) {
+        rej(err);
+      }
+    });
+  }
+
+  destroyHabits() {
+    return new Promise(async (res, rej) => {
+      try {
+        const db = await init();
+        const updatedUserData = await db
+          .collection("users")
+          .findOneAndUpdate(
+            { username: { $eq: this.username } },
+            { $set: { tracked_habits: {} } }
+          );
+        res("Tracked Habits Cleared");
       } catch (err) {
         rej(err);
       }
