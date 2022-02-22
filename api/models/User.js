@@ -16,11 +16,10 @@ class User {
         const db = await init();
         const userData = await db
           .collection("users")
-          .find({ org: { $eq: org } });
-        // .toArray();
-        // const users = userData.map((item) => new User(item));
-        // res(users);
-        res(userData);
+          .find({ org: { $eq: org } })
+          .toArray();
+        const users = userData.map((item) => new User(item));
+        res(users);
       } catch (err) {
         rej(err);
       }

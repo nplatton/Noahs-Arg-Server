@@ -3,7 +3,7 @@ const User = require("../models/User");
 async function index(req, res) {
   try {
     const users = await User.all(req.params.orgName);
-    res.status(200).json({ blah: users });
+    res.status(200).json(users);
   } catch (err) {
     res.status(500).json({ err });
   }
