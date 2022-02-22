@@ -52,7 +52,7 @@ class User {
         const db = await init();
         const newUserData = await db.collection("users").insertOne({
           username: data.username.toLowerCase(),
-          password_digest: data.hashed,
+          password_digest: data.password_digest,
           org: data.org.toLowerCase(),
           habits: {},
           streaks: {
