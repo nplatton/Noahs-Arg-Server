@@ -4,7 +4,7 @@ class User {
   constructor(data) {
     this.id = data._id;
     this.username = data.username;
-    this.passwordDigest = data.password_digest;
+    this.password_digest = data.password_digest;
     this.org = data.org;
     this.tracked_habits = data.tracked_habits;
     this.streaks = data.streaks;
@@ -52,7 +52,7 @@ class User {
         const db = await init();
         const newUserData = await db.collection("users").insertOne({
           username: data.username.toLowerCase(),
-          password_digest: data.hashed,
+          password_digest: data.password_digest,
           org: data.org.toLowerCase(),
           habits: {},
           streaks: {
