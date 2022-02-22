@@ -44,17 +44,17 @@ async function updateHabits(req, res) {
     const updatedUser = await user.createHabits(req.body);
     res.status(200).json(updatedUser);
   } catch (err) {
-    res.status(404).json({ err });
+    res.status(500).json({ err });
   }
 }
 
 async function updateSingleHabit(req, res) {
   try {
     const user = User.findByUsername(req.params.username);
-    await user.updateSingleHabit(req.params.habit);
-    res.status(200).json({});
+    const reponse = await user.incrementHabit(req.params.habit);
+    res.status(200).json("Habit Updated");
   } catch (err) {
-    res.status(500).json({ err: err });
+    res.status(500).json({ err });
   }
 }
 
@@ -64,7 +64,7 @@ async function clearHabits(req, res) {
     await user.destroyHabits();
     res.status(204).end();
   } catch (err) {
-    res.status(404).json({ err: err });
+    res.status(404).json({ err });
   }
 }
 
