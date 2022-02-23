@@ -1,3 +1,4 @@
+const res = require("express/lib/response");
 const { init } = require("../dbConfig/config");
 
 class User {
@@ -104,20 +105,84 @@ class User {
     });
   }
 
-  incrementHabit(habitName) {
+  incrementHabit(habitName, dayOfWeek) {
     return new Promise(async (res, rej) => {
       try {
         const db = await init();
-        await db.collection("users").findOneAndUpdate(
+        const updatedUser = await db.collection("users").updateOne(
           { username: { $eq: this.username } },
           {
-            $inc: {
-              "tracked_habits[${habitName}].daily_count": 1,
-              "tracked_habits[${habitName}].weekly_count": 1,
+            $set: {
+              [`tracked_habits.${habitName}.${dayOfWeek}`]: 1,
+              [`tracked_habits.${habitName}.weekly_count`]: 1,
             },
           }
         );
+
+        // Now we want to update the streaks
+        const days = ["mon", "tues", "wed", "thurs", "fri"];
+        if (dayOfWeek === "mon") {
+          // IDK... hope noone notices
+        }
+        if (dayOfWeek !== "mon") {
+          const previousDay = days[days.indexOf(dayOfWeek) - 1];
+        }
+        const user = await User.findByUsername(this.username);
+        const contStreak =
+          user.tracked_habits[`${habitName}`][`${previousDay}`];
+        await user.updateCurrentStreak(habitName, contStreak);
+
         res("Habit Updated");
+      } catch (err) {
+        rej(err);
+      }
+    });
+  }
+
+  updateCurrentStreak(habitName, contStreak) {
+    return new Promise(async (req, res) => {
+      try {
+        const user = await User.findByUsername(this.username);
+        const db = await init();
+        if (contStreak) {
+          const updatedUser = await db
+            .collection("users")
+            .updateOne(
+              { username: { $eq: this.username } },
+              { $inc: { [`streaks.${habitName}.current`]: 1 } },
+              { returnNewDocument: true }
+            );
+          // If current > highest we want to increment highest
+          const current = updatedUser.streaks[`${habitName}`].current;
+          const highest = updatedUser.streaks[`${habitName}`].highest;
+          if (current > highest) {
+            user.updateHighestStreak;
+          }
+        } else {
+          await db
+            .collection("users")
+            .updateOne(
+              { username: { $eq: this.username } },
+              { $set: { [`streaks.${habitName}.current`]: 1 } }
+            );
+        }
+        res("Streaks Updated");
+      } catch (arr) {
+        rej(err);
+      }
+    });
+  }
+
+  updateHighestStreak(habitName) {
+    return new Promise(async (req, res) => {
+      try {
+        const db = await init();
+        await db
+          .collection("users")
+          .updateOne(
+            { username: { $eq: this.username } },
+            { $inc: { [`streaks[${habitName}].highest`]: 1 } }
+          );
       } catch (err) {
         rej(err);
       }
