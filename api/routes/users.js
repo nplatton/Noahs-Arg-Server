@@ -5,13 +5,14 @@ const usersController = require("../controllers/users");
 const { verifyToken } = require("../middleware/auth");
 
 router.get("/org/:orgName", verifyToken, usersController.index);
-router.get("/:username", verifyToken, usersController.show);
+// -----------------NEED TO ADD verifyToken BELOW -----------------------
+router.get("/:username", usersController.show);
 router.post("/", usersController.create);
 router.delete("/:username", verifyToken, usersController.destroyUser);
 router.patch("/:username/habits/", verifyToken, usersController.updateHabits);
 router.patch(
   "/:username/habits/:habit",
-  verifyToken,
+  // verifyToken,
   usersController.updateSingleHabit
 );
 // Don't want to require verification here as I think this will be an automatic process

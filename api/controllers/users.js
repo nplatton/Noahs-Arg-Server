@@ -50,8 +50,11 @@ async function updateHabits(req, res) {
 
 async function updateSingleHabit(req, res) {
   try {
-    const user = User.findByUsername(req.params.username);
-    const reponse = await user.incrementHabit(req.params.habit);
+    const user = await User.findByUsername(req.params.username);
+    const reponse = await user.incrementHabit(
+      req.params.habit,
+      req.body.dayOfWeek
+    );
     res.status(200).json("Habit Updated");
   } catch (err) {
     res.status(500).json({ err });
