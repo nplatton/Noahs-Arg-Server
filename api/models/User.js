@@ -109,28 +109,33 @@ class User {
     return new Promise(async (res, rej) => {
       try {
         const db = await init();
-        const updatedUser = await db.collection("users").updateOne(
+        // Need to update weekly_count by the proper amount ----------------------
+        // const amount = this
+        const updatedUserData = await db.collection("users").findOneAndUpdate(
           { username: { $eq: this.username } },
           {
             $set: {
               [`tracked_habits.${habitName}.${dayOfWeek}`]: 1,
-              [`tracked_habits.${habitName}.weekly_count`]: 1,
             },
-          }
+          },
+          { returnNewDocument: true }
         );
+        const updatedUser = new User(updatedUserData.value);
 
         // Now we want to update the streaks
-        const days = ["mon", "tues", "wed", "thurs", "fri"];
+        let days = ["mon", "tues", "wed", "thurs", "fri"];
+        let previousDay;
         if (dayOfWeek === "mon") {
           // IDK... hope noone notices
+          previousDay = dayOfWeek;
         }
         if (dayOfWeek !== "mon") {
-          const previousDay = days[days.indexOf(dayOfWeek) - 1];
+          let index = days.indexOf(dayOfWeek) - 1;
+          previousDay = days[index];
         }
-        const user = await User.findByUsername(this.username);
         const contStreak =
-          user.tracked_habits[`${habitName}`][`${previousDay}`];
-        await user.updateCurrentStreak(habitName, contStreak);
+          updatedUser.tracked_habits[`${habitName}`][`${previousDay}`];
+        await updatedUser.updateCurrentStreak(habitName, contStreak);
 
         res("Habit Updated");
       } catch (err) {
@@ -140,23 +145,24 @@ class User {
   }
 
   updateCurrentStreak(habitName, contStreak) {
-    return new Promise(async (req, res) => {
+    return new Promise(async (res, rej) => {
       try {
-        const user = await User.findByUsername(this.username);
         const db = await init();
         if (contStreak) {
-          const updatedUser = await db
+          const updatedUserData = await db
             .collection("users")
-            .updateOne(
+            .findOneAndUpdate(
               { username: { $eq: this.username } },
               { $inc: { [`streaks.${habitName}.current`]: 1 } },
               { returnNewDocument: true }
             );
+          const updatedUser = new User(updatedUserData.value);
           // If current > highest we want to increment highest
           const current = updatedUser.streaks[`${habitName}`].current;
           const highest = updatedUser.streaks[`${habitName}`].highest;
           if (current > highest) {
-            user.updateHighestStreak;
+            const diff = current - highest + 1;
+            await updatedUser.updateHighestStreak(habitName, diff);
           }
         } else {
           await db
@@ -167,22 +173,23 @@ class User {
             );
         }
         res("Streaks Updated");
-      } catch (arr) {
+      } catch (err) {
         rej(err);
       }
     });
   }
 
-  updateHighestStreak(habitName) {
-    return new Promise(async (req, res) => {
+  updateHighestStreak(habitName, diff) {
+    return new Promise(async (res, rej) => {
       try {
         const db = await init();
         await db
           .collection("users")
-          .updateOne(
+          .findOneAndUpdate(
             { username: { $eq: this.username } },
-            { $inc: { [`streaks[${habitName}].highest`]: 1 } }
+            { $inc: { [`streaks.${habitName}.highest`]: diff } }
           );
+        res("Highest Streak Updated");
       } catch (err) {
         rej(err);
       }
