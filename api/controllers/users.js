@@ -84,8 +84,7 @@ async function clearHabits(req, res) {
     if (difference !== 0) {
       await user.destroyHabits();
       await user.updateLastVisited(todaysWeek);
-      res.json();
-      // res.status(204).end();
+      res.status(204).end();
     } else {
       res.status(200).json("User already logged in this week");
     }

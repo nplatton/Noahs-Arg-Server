@@ -60,7 +60,7 @@ db.users.insertMany([
         current: 0,
       },
     },
-    last_visited: 8,
+    last_visited: 9,
   },
   {
     username: "philip",

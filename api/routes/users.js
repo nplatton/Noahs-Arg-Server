@@ -5,7 +5,7 @@ const usersController = require("../controllers/users");
 const { verifyToken } = require("../middleware/auth");
 
 router.get("/org/:orgName", verifyToken, usersController.index);
-router.get("/:username", verifyToken, usersController.show);
+router.get("/:username", usersController.show);
 router.post("/", usersController.create);
 router.delete("/:username", verifyToken, usersController.destroyUser);
 router.get("/:username/habits/", verifyToken, usersController.getAllHabits);
@@ -15,6 +15,6 @@ router.patch(
   verifyToken,
   usersController.updateSingleHabit
 );
-router.delete("/:username/habits", verifyToken, usersController.clearHabits);
+router.patch("/:username/yes", usersController.clearHabits);
 
 module.exports = router;

@@ -9,6 +9,7 @@ class User {
     this.org = data.org;
     this.tracked_habits = data.tracked_habits;
     this.streaks = data.streaks;
+    this.last_visited = data.last_visited;
   }
 
   static all(org) {
