@@ -98,7 +98,7 @@ class User {
             { $set: { tracked_habits: data } },
             { returnNewDocument: true }
           );
-        const updatedUser = new User(updatedUserData);
+        const updatedUser = new User(updatedUserData.value);
         res(updatedUser);
       } catch (err) {
         rej(err);
