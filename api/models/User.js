@@ -201,6 +201,23 @@ class User {
     });
   }
 
+  updateLastVisited(week) {
+    return new Promise(async (res, rej) => {
+      try {
+        const db = await init();
+        await db
+          .collection("users")
+          .findOneAndUpdate(
+            { username: { $eq: this.username } },
+            { $set: { last_visited: week } }
+          );
+        res("Week Updated");
+      } catch (err) {
+        rej(err);
+      }
+    });
+  }
+
   destroyHabits() {
     return new Promise(async (res, rej) => {
       try {
