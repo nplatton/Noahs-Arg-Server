@@ -9,6 +9,7 @@ class User {
     this.org = data.org;
     this.tracked_habits = data.tracked_habits;
     this.streaks = data.streaks;
+    this.last_visited = data.last_visited;
   }
 
   static all(org) {
@@ -195,6 +196,23 @@ class User {
             { $inc: { [`streaks.${habitName}.highest`]: diff } }
           );
         res("Highest Streak Updated");
+      } catch (err) {
+        rej(err);
+      }
+    });
+  }
+
+  updateLastVisited(week) {
+    return new Promise(async (res, rej) => {
+      try {
+        const db = await init();
+        await db
+          .collection("users")
+          .findOneAndUpdate(
+            { username: { $eq: this.username } },
+            { $set: { last_visited: week } }
+          );
+        res("Week Updated");
       } catch (err) {
         rej(err);
       }

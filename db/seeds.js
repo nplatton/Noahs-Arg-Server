@@ -60,6 +60,7 @@ db.users.insertMany([
         current: 0,
       },
     },
+    last_visited: 9,
   },
   {
     username: "philip",
@@ -118,6 +119,7 @@ db.users.insertMany([
         current: 0,
       },
     },
+    last_visited: 7,
   },
   {
     username: "bojin",
@@ -176,5 +178,6 @@ db.users.insertMany([
         current: 0,
       },
     },
+    last_visited: 6,
   },
 ]);
