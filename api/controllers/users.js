@@ -41,6 +41,16 @@ async function destroyUser(req, res) {
   }
 }
 
+async function getAllHabits(req, res) {
+  try {
+    const user = await User.findByUsername(req.params.username);
+    const userHabits = user.tracked_habits;
+    res.status(200).json(userHabits);
+  } catch (err) {
+    res.status(404).json({ err });
+  }
+}
+
 async function updateHabits(req, res) {
   try {
     console.log(req.params.id);
@@ -74,7 +84,8 @@ async function clearHabits(req, res) {
     if (difference !== 0) {
       await user.destroyHabits();
       await user.updateLastVisited(todaysWeek);
-      res.status(204).end();
+      res.json();
+      // res.status(204).end();
     } else {
       res.status(200).json("User already logged in this week");
     }
@@ -87,6 +98,7 @@ module.exports = {
   index,
   show,
   create,
+  getAllHabits,
   updateHabits,
   updateSingleHabit,
   clearHabits,
