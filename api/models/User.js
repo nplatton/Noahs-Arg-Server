@@ -109,13 +109,18 @@ class User {
     return new Promise(async (res, rej) => {
       try {
         const db = await init();
-        // Need to update weekly_count by the proper amount ----------------------
-        // const amount = this
+
+        // Need to update weekly_count by the proper amount
+        const amount = this.tracked_habits[`${habitName}`].target_amount;
+        const currentWeekly = this.tracked_habits[`${habitName}`].weekly_count;
+        const newWeekly = currentWeekly + amount;
+
         const updatedUserData = await db.collection("users").findOneAndUpdate(
           { username: { $eq: this.username } },
           {
             $set: {
               [`tracked_habits.${habitName}.${dayOfWeek}`]: 1,
+              [`tracked_habits.${habitName}.weekly_count`]: newWeekly,
             },
           },
           { returnNewDocument: true }
