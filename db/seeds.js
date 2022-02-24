@@ -15,20 +15,47 @@ db.users.insertMany([
         mon: 1,
         tues: 1,
         wed: 1,
-        thurs: 0,
+        thurs: 1,
         fri: 0,
-        weekly_count: 12,
+        weekly_count: 16,
       },
       break_from_screen: {
         target_amount: 3,
         mon: 0,
         tues: 1,
         wed: 1,
-        thurs: 0,
+        thurs: 1,
         fri: 0,
-        weekly_count: 6,
+        weekly_count: 9,
       },
       stretch: {
+        target_amount: 3,
+        mon: 1,
+        tues: 1,
+        wed: 1,
+        thurs: 1,
+        fri: 0,
+        weekly_count: 12,
+      },
+      eat_fruit: {
+        target_amount: 4,
+        mon: 0,
+        tues: 1,
+        wed: 1,
+        thurs: 0,
+        fri: 0,
+        weekly_count: 8,
+      },
+      fresh_air: {
+        target_amount: 1,
+        mon: 1,
+        tues: 0,
+        wed: 1,
+        thurs: 0,
+        fri: 0,
+        weekly_count: 2,
+      },
+      socialise: {
         target_amount: 3,
         mon: 1,
         tues: 1,
@@ -45,18 +72,22 @@ db.users.insertMany([
       },
       break_from_screen: {
         highest: 3,
-        current: 2,
+        current: 3,
       },
       stretch: {
         highest: 6,
         current: 4,
       },
-      task4: {
-        highest: 0,
+      eat_fruit: {
+        highest: 5,
         current: 0,
       },
-      task5: {
-        highest: 0,
+      fresh_air: {
+        highest: 1,
+        current: 0,
+      },
+      socialise: {
+        highest: 2,
         current: 0,
       },
     },
@@ -96,6 +127,33 @@ db.users.insertMany([
         fri: 0,
         weekly_count: 8,
       },
+      eat_fruit: {
+        target_amount: 4,
+        mon: 0,
+        tues: 1,
+        wed: 1,
+        thurs: 0,
+        fri: 0,
+        weekly_count: 8,
+      },
+      fresh_air: {
+        target_amount: 1,
+        mon: 1,
+        tues: 0,
+        wed: 1,
+        thurs: 0,
+        fri: 0,
+        weekly_count: 2,
+      },
+      socialise: {
+        target_amount: 3,
+        mon: 1,
+        tues: 1,
+        wed: 1,
+        thurs: 0,
+        fri: 0,
+        weekly_count: 9,
+      },
     },
     streaks: {
       drink_water: {
@@ -110,12 +168,16 @@ db.users.insertMany([
         highest: 8,
         current: 1,
       },
-      task4: {
-        highest: 0,
+      eat_fruit: {
+        highest: 5,
         current: 0,
       },
-      task5: {
-        highest: 0,
+      fresh_air: {
+        highest: 1,
+        current: 0,
+      },
+      socialise: {
+        highest: 2,
         current: 0,
       },
     },
@@ -155,6 +217,33 @@ db.users.insertMany([
         fri: 0,
         weekly_count: 9,
       },
+      eat_fruit: {
+        target_amount: 4,
+        mon: 0,
+        tues: 1,
+        wed: 1,
+        thurs: 0,
+        fri: 0,
+        weekly_count: 8,
+      },
+      fresh_air: {
+        target_amount: 1,
+        mon: 1,
+        tues: 0,
+        wed: 1,
+        thurs: 0,
+        fri: 0,
+        weekly_count: 2,
+      },
+      socialise: {
+        target_amount: 3,
+        mon: 1,
+        tues: 1,
+        wed: 1,
+        thurs: 0,
+        fri: 0,
+        weekly_count: 9,
+      },
     },
     streaks: {
       drink_water: {
@@ -169,15 +258,19 @@ db.users.insertMany([
         highest: 3,
         current: 3,
       },
-      task4: {
-        highest: 0,
+      eat_fruit: {
+        highest: 5,
         current: 0,
       },
-      task5: {
-        highest: 0,
+      fresh_air: {
+        highest: 1,
+        current: 0,
+      },
+      socialise: {
+        highest: 2,
         current: 0,
       },
     },
-    last_visited: 6,
+    last_visited: 8,
   },
 ]);
