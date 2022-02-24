@@ -96,7 +96,7 @@ class User {
           .findOneAndUpdate(
             { username: { $eq: this.username } },
             { $set: { tracked_habits: data } },
-            { returnNewDocument: true }
+            { returnDocument: "after" }
           );
         const updatedUser = new User(updatedUserData.value);
         res(updatedUser);
