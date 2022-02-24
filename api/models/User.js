@@ -54,26 +54,30 @@ class User {
         const newUserData = await db.collection("users").insertOne({
           username: data.username.toLowerCase(),
           password_digest: data.password_digest,
-          org: data.org.toLowerCase(),
+          org: data.org,
           tracked_habits: {},
           streaks: {
-            habit1: {
+            drink_water: {
               highest: 0,
               current: 0,
             },
-            habit2: {
+            break_from_screen: {
               highest: 0,
               current: 0,
             },
-            habit3: {
+            stretch: {
               highest: 0,
               current: 0,
             },
-            habit4: {
+            eat_fruit: {
               highest: 0,
               current: 0,
             },
-            habit5: {
+            fresh_air: {
+              highest: 0,
+              current: 0,
+            },
+            socialise: {
               highest: 0,
               current: 0,
             },
